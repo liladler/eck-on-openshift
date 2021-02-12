@@ -112,6 +112,9 @@ spec:
           - /etc/beat.yml
           - -system.hostfs=/hostfs
           name: metricbeat
+          securityContext:
+            runAsUser: 0
+            privileged: true
           volumeMounts:
           - mountPath: /hostfs/sys/fs/cgroup
             name: cgroup
@@ -132,9 +135,6 @@ spec:
               memory: 2Gi
         dnsPolicy: ClusterFirstWithHostNet
         hostNetwork: true # Allows to provide richer host metadata
-        securityContext:
-          runAsUser: 0
-          privileged: true
         terminationGracePeriodSeconds: 30
         volumes:
         - hostPath:
